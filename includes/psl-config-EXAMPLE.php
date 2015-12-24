@@ -28,14 +28,10 @@
 /**
  * These are the database login details
  */
- 
-/**include_once '../../DB_config/login_credentials_DB_secure_login.php'; */
-
 define("HOST", "localhost"); 			// The host you want to connect to. 
 define("USER", "secure_login"); 			// The database username. 
 define("PASSWORD", ""); 	// The database password. 
 define("DATABASE", "secure_login");             // The database name.
-
 
 /**
  * Who can register and what the default role will be
