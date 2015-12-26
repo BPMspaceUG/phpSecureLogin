@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once 'db_connect.php';
-include_once 'functions.php';
+include_once 'db_connect.inc.php';
+include_once 'functions.inc.php';
 
 sec_session_start(); // Our custom secure way of starting a PHP session.
 

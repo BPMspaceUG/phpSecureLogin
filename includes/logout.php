@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once 'functions.php';
+include_once 'functions.inc.php';
 sec_session_start();
 
 // Unset all session values 
