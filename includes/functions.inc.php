@@ -45,7 +45,7 @@ function sec_session_start() {
 
 function login($email, $password, $mysqli) {
     // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT id, username, password, salt 
+    if ($stmt = $mysqli->prepare("SELECT id, lastname, password, salt 
 				  FROM members 
                                   WHERE email = ? LIMIT 1")) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
@@ -53,7 +53,7 @@ function login($email, $password, $mysqli) {
         $stmt->store_result();
 
         // get variables from result.
-        $stmt->bind_result($user_id, $username, $db_password, $salt);
+        $stmt->bind_result($user_id, $lastname, $db_password, $salt);
         $stmt->fetch();
 
         // hash the password with the unique salt.
@@ -78,9 +78,9 @@ function login($email, $password, $mysqli) {
                     $_SESSION['user_id'] = $user_id;
 
                     // XSS protection as we might print this value
-                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username);
+                    $lastname = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $lastname);
 
-                    $_SESSION['username'] = $username;
+                    $_SESSION['lastname'] = $lastname;
                     $_SESSION['login_string'] = hash('sha512', $password . $user_browser);
 
                     // Login successful. 
@@ -140,10 +140,10 @@ function checkbrute($user_id, $mysqli) {
 
 function login_check($mysqli) {
     // Check if all session variables are set 
-    if (isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
+    if (isset($_SESSION['user_id'], $_SESSION['lastname'], $_SESSION['login_string'])) {
         $user_id = $_SESSION['user_id'];
         $login_string = $_SESSION['login_string'];
-        $username = $_SESSION['username'];
+        $lastname = $_SESSION['lastname'];
 
         // Get the user-agent string of the user.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];

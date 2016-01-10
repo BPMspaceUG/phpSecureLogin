@@ -22,9 +22,9 @@ include_once 'psl-config.inc.php';
 
 $error_msg = "";
 
-if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
+if (isset($_POST['lastname'], $_POST['email'], $_POST['p'])) {
     // Sanitize and validate the data passed in
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -39,7 +39,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $error_msg .= '<p class="error">Invalid password configuration.</p>';
     }
 
-    // Username validity and password validity have been checked client side.
+    // lastname validity and password validity have been checked client side.
     // This should should be adequate as nobody gains any advantage from
     // breaking these rules.
     //
@@ -73,8 +73,8 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $password = hash('sha512', $password . $random_salt);
 
         // Insert the new user into the database 
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, salt) VALUES (?, ?, ?, ?)")) {
-            $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO members (lastname, email, password, salt) VALUES (?, ?, ?, ?)")) {
+            $insert_stmt->bind_param('ssss', $lastname, $email, $password, $random_salt);
             // Execute the prepared query.
             if (! $insert_stmt->execute()) {
                 header('Location: ../../index.php?error_messages="Registration failure: INSERT"');
