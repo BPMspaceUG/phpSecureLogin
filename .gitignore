@@ -2,3 +2,5 @@
 netbeans/*
 *#
 /includes/psl-config.php
+# log by rob
+*.log
